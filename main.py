@@ -89,7 +89,11 @@ with sync_playwright() as p:
     working_links = []
     timeout_links = []
 
-    for link in links:
+    total_links = len(links)
+
+    for index, link in enumerate(links, start=1):
+
+        print(f"Checking link {index}/{total_links}...")
 
         href = link.get_attribute("href")
 
@@ -111,7 +115,7 @@ with sync_playwright() as p:
 
             result = page.request.get(
                 full_url,
-                timeout=10000
+                timeout=3000
             )
 
             if result.status >= 400:
